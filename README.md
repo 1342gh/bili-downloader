@@ -7,7 +7,6 @@
 | 文件 | 说明 |
 |---|---|
 | `Bili下载_v2.6.1.apk` | Android APK（arm64-v8a，Android 10+） |
-| `GitHub Copilot 副驾驶.lnk` | 桌面快捷方式（指向 `D:\GitHub Copilot\github.exe`） |
 
 ## 版本
 
