@@ -47,6 +47,13 @@ App 支持「高级 → 更新」填入 JSON 清单地址：
 
 版本号大于当前值时会弹更新横幅，下载后调系统安装器。
 
+本仓库当前的更新清单（直接填这个地址）：
+
+```nhttps://github.com/1342gh/bili-downloader/releases/latest/download/latest.json
+```
+
+对应版本：[`v2.6.2-cpp`](https://github.com/1342gh/bili-downloader/releases/tag/v2.6.2-cpp)（versionCode 21）。
+
 用 GitHub Releases 的话：
 
 ```
