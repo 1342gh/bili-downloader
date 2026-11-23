@@ -53,7 +53,7 @@ App 支持「高级 → 更新」填入 JSON 清单地址：
 https://github.com/1342gh/bili-downloader/releases/latest/download/latest.json
 ```
 
-对应版本：[`v2.6.5`](https://github.com/1342gh/bili-downloader/releases/tag/v2.6.5)（versionCode 24，浏览页流式播放）。
+对应版本：[`v2.6.6`](https://github.com/1342gh/bili-downloader/releases/tag/v2.6.6)（versionCode 25，更新与登录修复）。
 
 用 GitHub Releases 的话：
 
