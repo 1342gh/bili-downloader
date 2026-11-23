@@ -1,0 +1,26 @@
+# 构建产物
+out/
+release/
+release-test/
+*.apk
+*.idsig
+
+# 签名材料（绝对不要提交）
+*.keystore
+*.jks
+keystore.properties
+
+# 第三方二进制
+libs/media3/*.aar
+libs/media3/jars/
+app/libs/
+app/assets/rife/
+app/assets/sample/
+ffmpeg/
+rife-jni/
+ncnn*/
+
+# 系统/工具
+.vscode/
+.DS_Store
+Thumbs.db

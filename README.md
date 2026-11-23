@@ -67,3 +67,18 @@ https://github.com/<用户>/<仓库>/releases/latest/download/BiliDownload.apk
 ```
 sha256  1D5A239819837299AA2A54AF049D265A...   # v2.6.1
 ```
+
+## 源码
+
+完整源码就在本仓库：
+
+| 路径 | 内容 |
+|---|---|
+| `app/` | Java 壳 + WebView 界面（`app/assets/web/` 是 HTML/CSS/JS） |
+| `native/` | C++ 核心（NDK 编出 `libbili.so`：WBI 签名 / 取流 / 断点续传 / ffmpeg 参数） |
+| `build.ps1` | 手工构建链：aapt2 → javac → d8 → jar → zipalign → apksigner（不需要 Gradle） |
+| `tools/fetch-libs.ps1` | 拉第三方库（media3 1.4.1 + guava），抽出 `classes.jar` |
+| `SOURCE.md` | 构建步骤、环境变量、仓库里缺哪些二进制、实现要点 |
+
+签名 keystore、ffmpeg/rife 二进制、media3 的 jar **不在仓库里**，细节见 `SOURCE.md`。
+签名口令走环境变量 `DSH_KS_PASS`，不写进任何文件。

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F2F4F8">
+<title>Bili 下载</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<main class="app">
+  <header>
+    <h1>Bili 下载</h1>
+    <p class="subtitle">粘贴链接 · 选好参数 · 一键下载</p>
+    <div class="meta">
+      <span class="device" id="device">设备检测中…</span>
+      <span class="account" id="account" title="点击刷新">账号：检测中…</span>
+    </div>
+
+    <div class="update-banner" id="updateBanner" hidden>
+      <div class="ub-text" id="updateText">发现新版本</div>
+      <div class="ub-ops">
+        <button id="updateGo">立即更新</button>
+        <button id="updateLater">稍后</button>
+      </div>
+    </div>
+
+    <nav class="tabbar" id="tabbar">
+      <button data-tab="down" class="on">下载</button>
+      <button data-tab="feed">浏览</button>
+    </nav>
+
+    <div class="theme-switch" id="themeSwitch">
+      <button data-mode="auto" class="on">跟随系统</button>
+      <button data-mode="light">浅色</button>
+      <button data-mode="dark">深色</button>
+    </div>
+  </header>
+
+  <div id="tabDown">
+  <section class="card">
+    <div class="caption">链接（每行一个，可多行）</div>
+    <textarea id="url" class="field" placeholder="粘贴链接 / BV号 / av号"></textarea>
+
+    <div class="sec-head" data-target="loginBody">
+      登录（可选，解锁 1080P+）<span class="chip">展开</span>
+    </div>
+    <div class="sec-body" id="loginBody" hidden>
+      <input id="cookie" class="field" placeholder="SESSDATA 或整段 Cookie" type="password" autocomplete="off">
+      <button class="mini login-btn" id="biliLogin">打开 B 站登录页（自动填 Cookie）</button>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="row">
+      <label for="content">内容</label>
+      <select id="content">
+        <option value="0">完整视频</option>
+        <option value="1">只要视频</option>
+        <option value="2">只要音频</option>
+      </select>
+    </div>
+
+    <div class="row">
+      <label for="format">格式</label>
+      <select id="format">
+        <option>MP4</option>
+        <option>MKV</option>
+        <option>MOV</option>
+        <option>M4A</option>
+        <option>MP3</option>
+        <option>FLAC</option>
+        <option>WAV</option>
+      </select>
+    </div>
+
+    <div class="row">
+      <label for="res">分辨率</label>
+      <select id="res">
+        <option value="0">原始分辨率</option>
+        <option value="720">720P</option>
+        <option value="1080">1080P</option>
+        <option value="1440">1440P</option>
+        <option value="2160">4K</option>
+      </select>
+    </div>
+
+    <div class="row">
+      <label for="fps">帧率</label>
+      <select id="fps">
+        <option value="0">原始帧率</option>
+        <option value="24">24 fps</option>
+        <option value="30">30 fps</option>
+        <option value="60">60 fps</option>
+      </select>
+    </div>
+
+    <div class="row" id="interpRow">
+      <label for="interp">AI 插帧</label>
+      <select id="interp">
+        <option value="0">不插帧</option>
+        <option value="1">AI 插帧 2x</option>
+      </select>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="log" id="log">等待开始…</div>
+  </section>
+
+  <div class="group-title">高级</div>
+
+  <section class="card">
+    <div class="sec-head" data-target="updateBody">
+      更新<span class="chip">展开</span>
+    </div>
+    <div class="sec-body" id="updateBody" hidden>
+      <button class="mini" id="updateCheck">检查更新</button>
+      <div class="plugin-hint">启动时自动检查；有新版本会在顶部弹横幅。</div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="sec-head" data-target="filterBody">
+      过滤规则（命中的视频直接跳过）<span class="chip">展开</span>
+    </div>
+    <div class="sec-body" id="filterBody" hidden>
+      <div class="caption">屏蔽关键词，一行一条</div>
+      <textarea class="field filter-field" id="filterKeywords" placeholder="例如：广告、恰饭"></textarea>
+      <div class="caption">屏蔽 UP 名</div>
+      <textarea class="field filter-field" id="filterChannels" placeholder="例如：某某搬运"></textarea>
+      <button class="mini" id="filterSave">保存规则</button>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="sec-head" data-target="pluginBody">
+      插件<span class="chip">展开</span>
+    </div>
+    <div class="sec-body" id="pluginBody" hidden>
+      <div class="plugin-list" id="pluginList">未加载插件</div>
+      <div class="plugin-actions" id="pluginActions"></div>
+
+      <div class="plugin-install">
+        <input class="field plugin-url" id="pluginUrl" placeholder="粘贴插件 .js 链接安装">
+        <button class="mini" id="pluginInstall">安装</button>
+      </div>
+      <div class="plugin-foot">
+        <button class="mini" id="pluginReload">重新加载</button>
+        <button class="mini" id="pluginTemplate">生成模板</button>
+      </div>
+      <div class="plugin-hint">插件可用完整 App 能力，只安装你信任的来源</div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="help-head" id="helpToggle">使用说明<span class="help-chip" id="helpChip">展开</span></div>
+    <div class="help" id="helpBody" hidden>
+      <p><b>1. 下载</b>：粘贴链接 / BV号，可多行；从 B 站分享过来会自动填入并开始。</p>
+      <p><b>2. 登录</b>：不填 SESSDATA 最高 480P；填了可 720P/1080P；大会员才能 1080P+/60fps/4K。
+        可以点「打开 B 站登录页」直接登录，也可以手动粘 Cookie。</p>
+      <p><b>3. 画质</b>：自动选当前账号能拿到的最高画质，日志里「可用画质」就是清单。</p>
+      <p><b>4. 放大/提帧</b>：分辨率是重采样（不会变清晰）；帧率是复制帧（不会更流畅）。</p>
+      <p><b>5. AI 插帧</b>：需骁龙 7+ Gen 2 及以上。720P 约 0.45 秒/帧，
+        建议只对 30 秒以内短片用；长片用电脑上的 rife_interp.py。</p>
+      <p><b>6. 插件</b>：粘贴 .js 链接安装；也能把 .js 分享给 App；删除按钮在插件名后面。</p>
+      <p><b>7. 文件位置</b>：视频在 <code>Movies/BiliUrl</code>，音频在 <code>Music/BiliUrl</code>。</p>
+      <p><b>8. 常见问题</b>：412 = B 站风控，等几分钟再试；一直 480P = Cookie 过期，看顶部账号那行。
+        崩溃日志在 <code>Download/Bili下载/</code>。</p>
+    </div>
+  </section>
+  </div><!-- /tabDown -->
+
+  <div id="tabFeed" hidden>
+    <div class="search-row">
+      <input class="field" id="searchInput" placeholder="搜索 B 站视频…">
+      <button class="mini" id="searchBtn">搜索</button>
+    </div>
+    <div class="feed-head">
+      <span id="feedTitle">热门视频</span>
+      <button class="mini" id="feedRefresh">换一批</button>
+    </div>
+    <div class="feed" id="feedList"><div class="feed-empty">加载中…</div></div>
+  </div>
+
+  <div class="actionbar">
+    <div class="progress" id="progress"><i></i></div>
+    <div class="actions">
+      <button class="primary" id="go">开始下载</button>
+      <button class="secondary" id="play">播放</button>
+    </div>
+  </div>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
